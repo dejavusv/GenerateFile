@@ -383,6 +383,26 @@ public class GenerateFile {
         File[] listOfFiles = folder.listFiles();
         return listOfFiles;
     }
+    
+    public List<String> getListFilename(String pathfile){
+        File[] listOfFiles = getListFileandFolder(pathfile);
+        List<String> ListFile = new LinkedList<String>();
+        for(int i=0;i<listOfFiles.length;i++){
+            if(listOfFiles[i].isFile())
+                ListFile.add(listOfFiles[i].getName());
+        }
+        return ListFile;
+    }
+    
+    public List<String> getListFoldername(String pathfile){
+        File[] listOfFiles = getListFileandFolder(pathfile);
+        List<String> ListFolder = new LinkedList<String>();
+        for(int i=0;i<listOfFiles.length;i++){
+            if(listOfFiles[i].isDirectory())
+                ListFolder.add(listOfFiles[i].getName());
+        }
+        return ListFolder;
+    }
 
     public void writefile(String input, String outputpath) throws IOException {
         FileWriter fw = new FileWriter(outputpath);
