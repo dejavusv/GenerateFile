@@ -87,7 +87,7 @@ public class GenerateFile {
         return outputPath;
     }
 
-    public String addDataToFile(String Filename, String template, Map<String, Object> map, String type ) throws IOException {
+    public String addDataToFile(String Filename, String template, Map<String, Object> map, String type) throws IOException {
 
         List<String> input = readFile(setPackagenameTopath(Filename));
         if (input.size() == 1) {
@@ -107,9 +107,9 @@ public class GenerateFile {
                 return TemplateData.get(0);
             }
         }
-       // if (CompareFileandTemplate(input, TemplateData)) {
-       //     return FAIL + " :This has in file already ,confirm to add it?";
-       // }
+        // if (CompareFileandTemplate(input, TemplateData)) {
+        //     return FAIL + " :This has in file already ,confirm to add it?";
+        // }
         int indexAddData = 0;
         String searchTag = type;
 
@@ -383,23 +383,30 @@ public class GenerateFile {
         File[] listOfFiles = folder.listFiles();
         return listOfFiles;
     }
-    
-    public List<String> getListFilename(String pathfile){
+
+    public List<String> getListFilename(String pathfile) {
         File[] listOfFiles = getListFileandFolder(pathfile);
         List<String> ListFile = new LinkedList<String>();
-        for(int i=0;i<listOfFiles.length;i++){
-            if(listOfFiles[i].isFile())
-                ListFile.add(listOfFiles[i].getName());
-        }
+        /*
+        if (listOfFiles != null) {
+            for (int i = 0; i < listOfFiles.length; i++) {
+                if (listOfFiles[i].isFile()) {
+                    ListFile.add(listOfFiles[i].getName());
+                }
+            }
+        }*/
         return ListFile;
     }
-    
-    public List<String> getListFoldername(String pathfile){
+
+    public List<String> getListFoldername(String pathfile) {
         File[] listOfFiles = getListFileandFolder(pathfile);
         List<String> ListFolder = new LinkedList<String>();
-        for(int i=0;i<listOfFiles.length;i++){
-            if(listOfFiles[i].isDirectory())
-                ListFolder.add(listOfFiles[i].getName());
+        if (listOfFiles != null) {
+            for (int i = 0; i < listOfFiles.length; i++) {
+                if (listOfFiles[i].isDirectory()) {
+                    ListFolder.add(listOfFiles[i].getName());
+                }
+            }
         }
         return ListFolder;
     }
@@ -582,13 +589,9 @@ public class GenerateFile {
         for (int i = 0; i < Listcommand.size(); i++) {
             //check Exiting file
             MasterTag tag = ReadCommandTag(CommmandPath, Listcommand.get(i), map);
-            
-            
+
             System.out.println("tag : " + tag.getCommand().get(0));
-            
-            
-            
-            
+
             if (!tag.getCommand().get(0).equalsIgnoreCase("ADDDATA")) {
                 if (tag.isExistsFile() && !FlagOverWrite) {
                     System.out.println("file exists!!!!");
@@ -596,9 +599,9 @@ public class GenerateFile {
                 } else {
                     result = RunCommandTag(tag);
                 }
-            }else{
+            } else {
                 result = RunCommandTag(tag);
-                               
+
             }
 
         }
